@@ -1,11 +1,9 @@
 package day01
 
 import (
+	"bigyihsuan/i18n-puzzles/util"
 	_ "embed"
 	"fmt"
-	"iter"
-	"slices"
-	"strings"
 )
 
 const (
@@ -16,7 +14,7 @@ const (
 )
 
 func Fees(input string) (total int) {
-	lines := parseInput(input)
+	lines := util.ToSeq[Line](input)
 
 	for line := range lines {
 		fmt.Printf("%q\nbytes: %d\nchars: %d\ncost: %d\n\n", line, len([]byte(line)), len([]rune(line)), line.Cost())
@@ -56,11 +54,3 @@ var TestInput string
 
 //go:embed input.txt
 var Input string
-
-func parseInput(input string) iter.Seq[Line] {
-	ls := []Line{}
-	for line := range strings.Lines(input) {
-		ls = append(ls, Line(strings.TrimSpace(line)))
-	}
-	return slices.Values(ls)
-}
