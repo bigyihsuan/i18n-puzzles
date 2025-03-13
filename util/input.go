@@ -14,6 +14,14 @@ func ToSeq[T ~string](input string) iter.Seq[T] {
 	return slices.Values(ls)
 }
 
+func ToSeqNoNewline[T ~string](input string) iter.Seq[T] {
+	ls := []T{}
+	for line := range strings.Lines(input) {
+		ls = append(ls, T(strings.TrimRight(line, "\n")))
+	}
+	return slices.Values(ls)
+}
+
 func ToSeqRaw[T ~string](input string) iter.Seq[T] {
 	ls := []T{}
 	for line := range strings.Lines(input) {
