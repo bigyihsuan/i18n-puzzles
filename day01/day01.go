@@ -13,7 +13,7 @@ const (
 	TWEET_LIMIT_CHARS int = 140
 )
 
-func Fees(input string) (total int) {
+func Solution(input string) (total int) {
 	lines := util.ToSeq[Line](input)
 
 	for line := range lines {

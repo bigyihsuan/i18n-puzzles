@@ -11,7 +11,7 @@ import (
 
 const TIME_FORMAT = "2006-01-02T15:04:05-07:00" // RFC3339 with `-` instead of `Z`
 
-func DetectWave(input string) string {
+func Solution(input string) string {
 	waves := make(map[time.Time]int)
 
 	lines := util.ToSeq[string](input)
