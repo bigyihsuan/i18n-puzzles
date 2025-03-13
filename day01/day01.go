@@ -9,44 +9,44 @@ import (
 const (
 	// SMS = 160 *bytes* = 11 cents
 	// tweet = 140 *chars* = 7 cents
-	SMS_LIMIT_BYTES   int = 160
-	TWEET_LIMIT_CHARS int = 140
+	smsLimitBytes   int = 160
+	tweetLimitChars int = 140
 )
 
 func Solution(input string) (total int) {
-	lines := util.ToSeq[Line](input)
+	lines := util.ToSeq[line](input)
 
 	for line := range lines {
-		fmt.Printf("%q\nbytes: %d\nchars: %d\ncost: %d\n\n", line, len([]byte(line)), len([]rune(line)), line.Cost())
-		total += line.Cost()
+		fmt.Printf("%q\nbytes: %d\nchars: %d\ncost: %d\n\n", line, len([]byte(line)), len([]rune(line)), line.cost())
+		total += line.cost()
 	}
 
 	return total
 }
 
-type Line string
+type line string
 
-func (l Line) Cost() int {
+func (l line) cost() int {
 	// SMS = 11 cents
 	// tweet = 7 cents
 	// SMS + tweet = 13 cents
 	switch {
-	case l.IsSMS() && l.IsTweet():
+	case l.isSMS() && l.isTweet():
 		return 13
-	case l.IsSMS():
+	case l.isSMS():
 		return 11
-	case l.IsTweet():
+	case l.isTweet():
 		return 7
 	default:
 		return 0
 	}
 }
 
-func (l Line) IsSMS() bool {
-	return len([]byte(l)) <= SMS_LIMIT_BYTES
+func (l line) isSMS() bool {
+	return len([]byte(l)) <= smsLimitBytes
 }
-func (l Line) IsTweet() bool {
-	return len([]rune(l)) <= TWEET_LIMIT_CHARS
+func (l line) isTweet() bool {
+	return len([]rune(l)) <= tweetLimitChars
 }
 
 //go:embed testdata.txt

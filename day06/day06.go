@@ -55,7 +55,7 @@ func fixDictionary(dictionary []string) (newDictionary []string) {
 		var d string = entry
 		var err error
 		if index%3 == 0 || index%5 == 0 {
-			d, err = encoder.String(entry)
+			d, err = encoder.String(d)
 			if err != nil {
 				panic(err)
 			}

@@ -9,13 +9,13 @@ import (
 	"time"
 )
 
-const TIME_FORMAT = "2006-01-02T15:04:05-07:00" // RFC3339 with `-` instead of `Z`
+const timeFormat = "2006-01-02T15:04:05-07:00" // RFC3339 with `-` instead of `Z`
 
 func Solution(input string) string {
 	waves := make(map[time.Time]int)
 
 	lines := util.ToSeq[string](input)
-	times := ToTimes(lines)
+	times := toTimes(lines)
 
 	// find occurrences
 	for t := range times {
@@ -31,11 +31,11 @@ func Solution(input string) string {
 	// pick the first wave that happened 4+ times
 	for t, n := range maps.All(waves) {
 		if n >= 4 {
-			return t.Format(TIME_FORMAT)
+			return t.Format(timeFormat)
 		}
 	}
 
-	return time.Now().Format(TIME_FORMAT)
+	return time.Now().Format(timeFormat)
 }
 
 //go:embed test-input.txt
@@ -44,7 +44,7 @@ var TestInput string
 //go:embed input.txt
 var Input string
 
-func ToTimes[T ~string](lines iter.Seq[T]) iter.Seq[time.Time] {
+func toTimes[T ~string](lines iter.Seq[T]) iter.Seq[time.Time] {
 	return func(yield func(time.Time) bool) {
 		next, stop := iter.Pull(lines)
 		defer stop()
@@ -53,7 +53,7 @@ func ToTimes[T ~string](lines iter.Seq[T]) iter.Seq[time.Time] {
 			if !ok {
 				return
 			}
-			t, err := time.Parse(TIME_FORMAT, string(line))
+			t, err := time.Parse(timeFormat, string(line))
 			if err != nil {
 				panic(fmt.Errorf("LinesToTimes time parsing failed: %w", err))
 			}

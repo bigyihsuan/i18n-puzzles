@@ -28,15 +28,15 @@ func Solution(input string) (totalMinutes int) {
 	return totalMinutes
 }
 
-type Trip struct {
-	Start, End ZoneTime
+type trip struct {
+	Start, End zoneTime
 }
 
-type ZoneTime struct {
+type zoneTime struct {
 	Zone, Time string
 }
 
-func (z ZoneTime) AsTime() (time.Time, error) {
+func (z zoneTime) AsTime() (time.Time, error) {
 	l, err := time.LoadLocation(z.Zone)
 	if err != nil {
 		return time.Now(), err
@@ -44,15 +44,15 @@ func (z ZoneTime) AsTime() (time.Time, error) {
 	return time.ParseInLocation("Jan 02, 2006, 15:04", z.Time, l)
 }
 
-type LocKind string
+type locKind string
 
 const (
-	DEPARTURE LocKind = "Departure:"
-	ARRIVAL   LocKind = "Arrival:"
+	lcDeparture locKind = "Departure:"
+	lcArrival   locKind = "Arrival:"
 )
 
-func NewLoc(input string, kind LocKind) ZoneTime {
-	var l ZoneTime
+func newLoc(input string, kind locKind) zoneTime {
+	var l zoneTime
 	s, _ := strings.CutPrefix(input, string(kind))
 	fields := strings.Fields(s)
 	l.Zone = fields[0]
@@ -60,14 +60,14 @@ func NewLoc(input string, kind LocKind) ZoneTime {
 	return l
 }
 
-func parseInput(input string) (ts []Trip) {
+func parseInput(input string) (ts []trip) {
 	// input is grouped in sets of 3 lines
 	lines := slices.Collect(util.ToSeq[string](input))
 	tripLines := slices.Chunk(lines, 3)
 	for tl := range tripLines {
-		departure := NewLoc(tl[0], DEPARTURE)
-		arrival := NewLoc(tl[1], ARRIVAL)
-		ts = append(ts, Trip{departure, arrival})
+		departure := newLoc(tl[0], lcDeparture)
+		arrival := newLoc(tl[1], lcArrival)
+		ts = append(ts, trip{departure, arrival})
 	}
 
 	return

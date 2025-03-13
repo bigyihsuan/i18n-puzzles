@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-const POO = '💩'
+const poo = '💩'
 
 func Solution(input string) (total int) {
 	lines := util.ToSeqRaw[string](input)
@@ -23,7 +23,7 @@ func Solution(input string) (total int) {
 		line := []rune(strings.TrimRight(l, "\n"))
 		// fmt.Printf("%d %q\n", row, string(line))
 		// fmt.Printf("%q\n", string(line[col]))
-		if line[col] == POO {
+		if line[col] == poo {
 			total++
 		}
 		col = (col + 2) % len(line)

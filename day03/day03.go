@@ -14,7 +14,7 @@ func Solution(input string) (valid int) {
 	lines := util.ToSeq[string](input)
 
 	for password := range lines {
-		ok, reasons := PasswordIsValid(password)
+		ok, reasons := isValidPassword(password)
 		fmt.Printf("%q => %t\n", password, ok)
 		rs := []string{}
 		for _, reason := range reasons {
@@ -32,7 +32,7 @@ func Solution(input string) (valid int) {
 	return
 }
 
-func PasswordIsValid(password string) (ok bool, reasons []error) {
+func isValidPassword(password string) (ok bool, reasons []error) {
 	// requirements:
 	// - a length of at least 4 and at most 12
 	// - at least one digit
