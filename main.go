@@ -7,6 +7,7 @@ import (
 	"bigyihsuan/i18n-puzzles/day04"
 	"bigyihsuan/i18n-puzzles/day05"
 	"bigyihsuan/i18n-puzzles/day06"
+	"bigyihsuan/i18n-puzzles/day07"
 	"flag"
 	"fmt"
 )
@@ -53,6 +54,12 @@ func main() {
 			fmt.Println(day06.Solution(day06.TestInput))
 		} else {
 			fmt.Println(day06.Solution(day06.Input))
+		}
+	case 7:
+		if *useTest {
+			fmt.Println(day07.Solution(day07.TestInput))
+		} else {
+			fmt.Println(day07.Solution(day07.Input))
 		}
 	default:
 		flag.Usage()

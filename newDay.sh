@@ -4,10 +4,10 @@ INPUT_TEMPLATE="package %s
 
 import _ \"embed\"
 
-//go:embed test-input.txt
+//go:embed test-input
 var TestInput string
 
-//go:embed input.txt
+//go:embed input
 var Input string"
 
 DAY_TEMPLATE="package %s
