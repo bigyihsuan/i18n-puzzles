@@ -36,23 +36,13 @@ func (a audit) Fixed() time.Time {
 	halLoc, _ := time.LoadLocation(halifax)
 	santLoc, _ := time.LoadLocation(santiago)
 
-	// _, o := a.Timestamp.Zone()
-	// offset := o / 60 / 60
 	hal := a.Timestamp.In(halLoc)
 	sant := a.Timestamp.In(santLoc)
 
 	if hal.Hour() == a.Timestamp.Hour() {
 		return hal.Add(-time.Duration(a.Incorrect) * time.Minute).Add(time.Duration(a.Correct) * time.Minute)
-		// if hal.IsDST() {
-		// } else {
-		// 	return sant.Add(-time.Duration(a.Incorrect) * time.Minute).Add(time.Duration(a.Correct) * time.Minute)
-		// }
 	} else {
 		return sant.Add(-time.Duration(a.Incorrect) * time.Minute).Add(time.Duration(a.Correct) * time.Minute)
-		// if sant.IsDST() {
-		// } else {
-		// 	return hal.Add(-time.Duration(a.Incorrect) * time.Minute).Add(time.Duration(a.Correct) * time.Minute)
-		// }
 	}
 }
 
